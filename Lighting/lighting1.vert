@@ -17,7 +17,9 @@ vec4 light(vec3 N, vec3 V, vec3 L)
 {
 //Lighting by Blinn-Phong model
     N=normalize(N);
-    V=-normalize(V); //OpenGL agafa el component z -> V = vec3(0.0, 0.0, 0.0)
+    V=normalize(V); 
+    //OpenGL agafa el component z -> 
+    V = vec3(0.0, 0.0, 1.0);
     L=normalize(L);
     vec3 H = normalize(V+L);
     float NdotL = max(0.0, dot(N,L));
