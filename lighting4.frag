@@ -14,16 +14,16 @@ uniform vec4 lightAmbient, lightDiffuse, lightSpecular, lightPosition;
 
 void main()
 {
-    //vec3 V = -normalize(worldPosition);
-    vec3 V = vec3(0.0, 0.0, 1.);
+    vec3 V = -normalize(worldPosition);
+    vec3 N = normalize(worldNormal);
+    //vec3 V = vec3(0.0, 0.0, 1.);
     vec3 L = normalize(lightPosition.xyz - worldPosition);
-    vec3 H = normalize(V+L);
-
-    float NdotL = max(0.0, dot(worldNormal,L));
-    float NdotH = max(0.0, dot(worldNormal,H));
+    vec3 R = normalize(2.0*dot(N,L)*N-L);
+    float NdotL = max(0.0, dot(N,L));
+    float RdotV = max(0.0, dot(R,V));
     float Idiff = NdotL;
     float Ispec = 0;
-    if (NdotL > 0) Ispec = pow(NdotH, matShininess);
+    if (NdotL > 0) Ispec = pow(RdotV, matShininess);
     fragColor = matAmbient * lightAmbient;
     fragColor += matDiffuse * lightDiffuse * Idiff;
     fragColor += matSpecular * lightSpecular * Ispec;

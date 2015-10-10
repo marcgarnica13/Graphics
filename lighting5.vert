@@ -12,24 +12,12 @@ uniform mat4 viewMatrix;
 uniform vec4 matAmbient, matDiffuse, matSpecular;
 uniform float matShininess;
 uniform vec4 lightAmbient, lightDiffuse, lightSpecular, lightPosition;
+uniform bool world = true;
 
 out vec3 worldPosition;
 out vec3 worldNormal;
 
 
-vec4 light(vec3 N, vec3 V, vec3 L)
-{
-    N=normalize(N);
-    V=normalize(V);
-    L=normalize(L);
-    vec3 H = normalize(V+L);
-    float NdotL = max(0.0, dot(N,L));
-    float NdotH = max(0.0, dot(N,H));
-    float Idiff = NdotL;
-    float Ispec = 0;
-    if (NdotL > 0) Ispec = pow(NdotH, matShininess);
-    return matAmbient * lightAmbient + matDiffuse * lightDiffuse * Idiff + matSpecular * lightSpecular * Ispec;
-}
 
 void main()
 {
@@ -37,11 +25,16 @@ void main()
     vec3 N = normalize(normalMatrix * normal);
     vec3 V = -P;
     vec3 L = (lightPosition.xyz - P);
-    //Blinn shading in Vertex Shader
+    //PHONG shading in Vertex Shader
     //frontColor = light(N,V,L);
-    //Blinn shading in fragment Shader
+    //PHONG shading in fragment Shader
     frontColor = vec4(color,1.0);
-    worldPosition = normalize(P);
-    worldNormal = N;
+    if (!world) {
+      worldPosition = P;
+      worldNormal = N; //S'ha de normalitzar en el fragment shader
+    } else {
+      worldPosition = vertex.xyz;
+      worldNormal = normal;
+    }
     gl_Position = modelViewProjectionMatrix * vec4(vertex.xyz,1.0);
 }
