@@ -2,4 +2,4 @@
 
 echo "Running the viewer"
 
-../NewViewer/viewer/bin/viewerd
+~/Documents/FIB/Grafics/Shaders/shaders/NewViewer/viewer/bin/viewerd
