@@ -1,4 +1,4 @@
-#version 330 core
+ #version 330 core
 
 layout (location = 0) in vec3 vertex;
 layout (location = 1) in vec3 normal;
@@ -12,6 +12,10 @@ uniform mat4 modelViewProjectionMatrix;
 uniform mat3 normalMatrix;
 uniform float amplitude=0.1;
 uniform float freq = 1; //Hz
+uniform float slice = 1/30;
+int n = 0;
+
+
 
 uniform float time;
 
@@ -19,6 +23,8 @@ void main()
 {
     vec3 N = normalize(normalMatrix * normal);
     frontColor = vec4(normalize(normalMatrix * normal).z);
+    
+    vec2 auxTexCoord = texCoord*vec2(1/8,1/6);
     vtexCoord = texCoord;
     gl_Position = modelViewProjectionMatrix * vec4(vertex.xyz, 1.0);
 }
