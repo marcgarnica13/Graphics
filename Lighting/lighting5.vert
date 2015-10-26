@@ -29,12 +29,7 @@ void main()
     //frontColor = light(N,V,L);
     //PHONG shading in fragment Shader
     frontColor = vec4(color,1.0);
-    if (!world) {
-      worldPosition = P;
-      worldNormal = N; //S'ha de normalitzar en el fragment shader
-    } else {
-      worldPosition = vertex.xyz;
-      worldNormal = normal;
-    }
+    worldPosition = vertex.xyz;
+    worldNormal = normal;
     gl_Position = modelViewProjectionMatrix * vec4(vertex.xyz,1.0);
 }

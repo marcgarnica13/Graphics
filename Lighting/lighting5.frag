@@ -7,6 +7,8 @@ in vec3 worldNormal;
 out vec4 fragColor;
 
 uniform mat4 modelViewMatrix;
+uniform mat3 normalMatrix;
+uniform mat4 modelViewMatrixInverse;
 
 uniform bool world;
 uniform vec4 matAmbient, matDiffuse, matSpecular;
@@ -31,15 +33,17 @@ vec4 light(vec3 N, vec3 V, vec3 L)
 void main()
 {
   vec3 V,N,L;
-  V = -normalize(worldPosition);
-  N = normalize(worldNormal);
   //V = vec3(1.0, 0.0, 0.0);
+  vec3 P = (modelViewMatrix * vec4(worldPosition.xyz, 1.0)).xyz;
   if(!world) {
-    L = normalize(lightPosition.xyz - worldPosition);
+    L = normalize(lightPosition.xyz - P);
+    V = -P;
+    N = normalMatrix * worldNormal;
+    
   } else {
-    mat4 modelViewInversed = inverse(modelViewMatrix);
-    vec4 newLightPosition = normalize(modelViewInversed*lightPosition);
-    L= normalize(newLightPosition.xyz - worldPosition);
+    L = vec3(modelViewMatrixInverse*lightPosition - vec4(worldPosition.xyz,1));
+    V = vec3((modelViewMatrixInverse * vec4(0,0,0,1)).xyz - worldPosition);
+    N = worldNormal;
     
   }
   fragColor = light(N, V, L);

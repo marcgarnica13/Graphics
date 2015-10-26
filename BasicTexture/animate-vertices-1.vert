@@ -17,10 +17,9 @@ uniform float time;
 
 void main()
 {
-    vec3 N = normalize(normalMatrix * normal);
     frontColor = vec4(normalize(normalMatrix * normal).z);
     vtexCoord = texCoord;
-    float distance = 0.1*sin(2*3.1415*freq*time);
-    vec3 movedVertex = vertex.xyz + distance*N.xyz;
-    gl_Position = modelViewProjectionMatrix * vec4(movedVertex.xyz, 1.0);
+    float distance = 0.1*sin(2.0*3.1415*freq*time + 0.0);
+    vec4 offset = vec4(normal*distance, 0.0);
+    gl_Position = modelViewProjectionMatrix * vec4(vertex.xyz + offset.xyz, 1.0);
 }
