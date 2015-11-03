@@ -1,0 +1,7 @@
+bool pointInsideTriangle(vec2 p, vec2 p0, vec2 p1, vec2 p2)
+{
+	float a = (-p1.y*p2.x + p0.y*(-p1.x + p2.x) + p0.x*(p1.y - p2.y) + p1.x*p2.y);
+	float s = 1./a*(p0.y*p2.x - p0.x*p2.y + (p2.y - p0.y)*p.x + (p0.x - p2.x)*p.y);
+	float t = 1./a*(p0.x*p1.y - p0.y*p1.x + (p0.y - p1.y)*p.x + (p1.x - p0.x)*p.y);
+	return (s>0) && (t>0) && (1-s-t>0);
+}
