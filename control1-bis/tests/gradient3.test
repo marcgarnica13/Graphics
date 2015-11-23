@@ -1,0 +1,36 @@
+test uno
+{
+  background 1.0 1.0 1.0
+  scene 3	
+  theta 0
+  psi 0
+  translate 0 0 -4
+  float time 0 0 0 0
+}
+test uno
+{
+  background 1.0 1.0 1.0
+  scene 4	
+  theta 0
+  psi 0
+  translate 0 0 -4
+  float time 0.25 0 0 0
+}
+test uno
+{
+  background 1.0 1.0 1.0
+  scene 4	
+  theta 0
+  psi 20
+  translate 0 0 -4
+  float time 0.75 0 0 0
+}
+test uno
+{
+  background 1.0 1.0 1.0
+  scene 4	
+  theta 0
+  psi 40
+  translate 0 0 -4
+  float time 0.75 0 0 0
+}

@@ -1,0 +1,25 @@
+resize 800 600
+wire
+noaxes
+clearColor 1 1 0.7
+
+loadObject /assig/grau-g/models/cube.obj
+resetCamera
+float time 0
+grab 1
+grab 1
+
+
+float time 0.25
+grab 2
+grab 2
+
+yaw 45
+pitch 45
+float time 0.0
+grab 3
+grab 3
+
+float time 0.25
+grab 4
+grab 4
